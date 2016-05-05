@@ -1,0 +1,24 @@
+{
+  "name": "eslint-plugin-sm-validator",
+  "version": "0.0.0",
+  "description": "Sequelize migration validator",
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "eslint-plugin"
+  ],
+  "main": "lib/index.js",
+  "scripts": {
+    "test-rules": "mocha tests/lib/rules"
+  },
+  "dependencies": {
+    "requireindex": "~1.1.0"
+  },
+  "devDependencies": {
+    "eslint": "~1.10.0"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "license": "ISC"
+}
