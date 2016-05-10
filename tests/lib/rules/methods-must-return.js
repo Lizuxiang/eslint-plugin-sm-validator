@@ -9,10 +9,8 @@
 //------------------------------------------------------------------------------
 // Requirements
 //------------------------------------------------------------------------------
-
-var rule = require('../../../lib/rules/methods-must-return'),
-
-    RuleTester = require('eslint').RuleTester;
+var rule = require('../../../lib/index')['rules']['methods-must-return'],
+	RuleTester = require('eslint').RuleTester;
 
 
 //------------------------------------------------------------------------------
@@ -23,56 +21,29 @@ var ruleTester = new RuleTester();
 ruleTester.run('methods-must-return', rule, {
 
 	valid: [
-		'function functionDeclarationReturn() { var result; return result}',
-		'function functionDeclarationReturnWithFunctionExpressionReturn() {' +
-			'var result; ' +
-			'var func = function () {' +
-				'if (result) {' +
-					'var nextResult;' +
+		'module.exports = {' +
+			'up: function() {' +
+				'if (true) {' +
+					'return 5;' +
 				'}' +
-				'return nextResult;' +
-			'};' +
-			'return result;' + 
-		'}',
+			'}' +
+		'}'
 	],
 
-    invalid: [
-        {
-            code: 'function functionDeclarationNoReturn() { var myVar = 5; }',
-            errors: [{
-                message: 'Expected a function to return a value',
-            }]
-        }, {
-			code: 'function functionDeclarationReturnWithFunctionExpressionNoReturn() {' +
-					'var result; ' +
-					'var func = function () {' +
-						'if (result) {' +
-							'var nextResult;' +
-						'}' +
-						'return nextResult;' +
-					'};' +
-				'}',
-            errors: [{
-                message: 'Expected a function to return a value',
-            }]
-		}, {
-			code: 'function functionDeclarationNoReturnWithFunctionExpressionReturn() {' +
-					'var result; ' +
-					'var func = function () {' +
-						'if (result) {' +
-							'var nextResult;' +
-						'}' +
-					'};' +
-					'return result;' + 
-				'}',
-            errors: [{
-                message: 'Expected a function to return a value',
-            }]
-		}
-    ]
+    invalid: [{
+		code: 'module.exports = {' +
+			'up: function() {' +
+				'function internal() {' +
+					'if (true) {' +
+						'return 5;' +
+					'} else {' +
+						'return 6;' +
+					'}'+
+				'}' +
+			'}' +
+		'}',
+		errors: [{
+			message: 'Expected a function to return a value',
+		}]
+	}]
 });
-
-
-6906 spring run drive
-
-westerville oh 43082
